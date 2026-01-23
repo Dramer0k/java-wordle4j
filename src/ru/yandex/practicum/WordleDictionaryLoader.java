@@ -24,7 +24,7 @@ public class WordleDictionaryLoader {
 
     }
 
-    public WordleDictionary LoadDictionary() throws IOException {
+    public WordleDictionary loadDictionary() throws IOException {
         logger.log("Читаем исходный словарь...");
         readSourceDictionary();
         logger.log("Подготавливаем исходный словарь к игре...");
@@ -34,7 +34,7 @@ public class WordleDictionaryLoader {
         return new WordleDictionary(filteredDictionary, logger);
     }
 
-    public void readSourceDictionary() throws IOException{
+    public void readSourceDictionary() throws IOException {
         Path dictionaryFilePath = Paths.get(System.getProperty("user.dir"), GameSetting.DICTIONARY_FILE_NAME);
         try (FileReader fileReader = new FileReader(dictionaryFilePath.toFile(), StandardCharsets.UTF_8)) {
             BufferedReader br = new BufferedReader(fileReader);

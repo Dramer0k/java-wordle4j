@@ -19,7 +19,7 @@ public class Wordle {
 
         Logger logger = new Logger(GameSetting.LOGGER_FILE_NAME); //создаем логгер
         WordleDictionaryLoader loader = new WordleDictionaryLoader(logger); //создаем загрузчик словаря
-        WordleDictionary wordleDictionary = loader.LoadDictionary(); // загружаем словарь
+        WordleDictionary wordleDictionary = loader.loadDictionary(); // загружаем словарь
         WordleGame wordleGame = new WordleGame(wordleDictionary, logger); //создаем игру
         Scanner scanner = new Scanner(System.in);
 
