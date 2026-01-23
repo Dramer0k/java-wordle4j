@@ -17,7 +17,7 @@ class WordleGameTest {
     @BeforeAll
     static void beforeAll() throws IOException {
         wordleDictionaryLoader = new WordleDictionaryLoader(new Logger("TestLogs"));
-        wordleDictionar = wordleDictionaryLoader.LoadDictionary();
+        wordleDictionar = wordleDictionaryLoader.loadDictionary();
         wordleGame = new WordleGame(wordleDictionar, new Logger("TestLogs.txt"));
 
     }

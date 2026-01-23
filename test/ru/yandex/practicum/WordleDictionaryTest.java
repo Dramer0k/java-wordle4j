@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class WordleDictionaryTest {
 
     WordleDictionaryLoader wordleDictionaryLoader = new WordleDictionaryLoader(new Logger("TestLogs.txt"));;
-    WordleDictionary wordleDictionary = wordleDictionary = wordleDictionaryLoader.LoadDictionary();;
+    WordleDictionary wordleDictionary = wordleDictionary = wordleDictionaryLoader.loadDictionary();;
 
     WordleDictionaryTest() throws IOException {
     }
