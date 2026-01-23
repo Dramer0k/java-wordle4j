@@ -10,7 +10,6 @@ import java.util.Arrays;
 public class Logger {
 
     private final BufferedWriter bufferedWriter;
-    String loggerFileName = "MainLogs.txt";
 
     public Logger(String str) throws IOException {
         this.bufferedWriter = new BufferedWriter(new FileWriter(createFile(str), StandardCharsets.UTF_8));
