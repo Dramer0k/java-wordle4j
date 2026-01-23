@@ -63,7 +63,6 @@ public class WordleDictionaryLoader {
                         }
                     }
                     filteredDictionary.add(String.join("", array));
-
                 }
             }
             logger.log("Исходный словарь успешно отфильтрован! Значений: " + filteredDictionary.size());
