@@ -1,6 +1,5 @@
 package ru.yandex.practicum;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -15,7 +14,7 @@ import static ru.yandex.practicum.GameSetting.*;
 public class WordleDictionary {
 
     private final List<String> words;
-    Logger logger;
+    private final Logger logger;
 
     public WordleDictionary(List<String> words, Logger logger) {
         this.words = words;
@@ -29,12 +28,12 @@ public class WordleDictionary {
         return words.get(randomNumber);
     }
 
-    public void updateDictionary(int position, char symbol, String verdict, String response) throws IOException {
+    public void updateDictionary(int position, char symbol, String verdict, String response) {
         List<String> toRemove = new ArrayList<>();
         toRemove.add(response);
         for (String str : words) {
             char currentSymbol = str.charAt(position);
-            if (verdict.equals(CORRECT_LETTER) && !Character.toString(currentSymbol).equals(Character.toString(symbol))) {
+            if (verdict.equals(CORRECT_LETTER) && currentSymbol != symbol) {
                 toRemove.add(str);
             } else if (verdict.equals(INCORRECT_LETTER) || verdict.equals(DIFFERENT_POSITION)) {
                 boolean foundLetter = false;

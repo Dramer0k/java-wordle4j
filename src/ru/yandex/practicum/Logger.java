@@ -7,15 +7,17 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
-public class Logger {
+public class Logger implements AutoCloseable {
 
     private final BufferedWriter bufferedWriter;
+    private final String nameFileLog;
 
     public Logger(String str) throws IOException {
+        this.nameFileLog = str;
         this.bufferedWriter = new BufferedWriter(new FileWriter(createFile(str), StandardCharsets.UTF_8));
     }
 
-    public File createFile(String name) {
+    private File createFile(String name) {
         Path path = Paths.get(System.getProperty("user.dir"), "logs", name);
         try {
             if (!Files.exists(path.getParent())) {
@@ -32,15 +34,16 @@ public class Logger {
         return path.toFile();
     }
 
-    public void log(String message) throws IOException {
-        try {
+    public void log(String message) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(Paths.get(System.getProperty("user.dir"), "logs", nameFileLog).toFile(), true))) {
             bufferedWriter.write(message);
             bufferedWriter.write("\n");
         } catch (IOException e) {
-            bufferedWriter.write("[Error] Ошибка при записи в лог");
+            System.out.println("Ошибка при записи в лог");
         }
     }
 
+    @Override
     public void close() throws IOException {
         bufferedWriter.close();
     }

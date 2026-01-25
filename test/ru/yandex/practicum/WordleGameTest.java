@@ -24,7 +24,7 @@ class WordleGameTest {
 
     @Test
     void testCheckInputFilter() {
-        String testStr = wordleGame.inputFilter("Ёжик");
+        String testStr = WordleGame.editResponse("Ёжик");
         Assertions.assertEquals("ежик", testStr);
     }
 

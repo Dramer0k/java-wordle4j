@@ -21,10 +21,9 @@ public class WordleDictionaryLoader {
 
     public WordleDictionaryLoader(Logger logger) {
         this.logger = logger;
-
     }
 
-    public WordleDictionary loadDictionary() throws IOException {
+    public WordleDictionary loadDictionary() {
         logger.log("Читаем исходный словарь...");
         readSourceDictionary();
         logger.log("Подготавливаем исходный словарь к игре...");
@@ -34,7 +33,7 @@ public class WordleDictionaryLoader {
         return new WordleDictionary(filteredDictionary, logger);
     }
 
-    public void readSourceDictionary() throws IOException {
+    public void readSourceDictionary() {
         Path dictionaryFilePath = Paths.get(System.getProperty("user.dir"), GameSetting.DICTIONARY_FILE_NAME);
         try (FileReader fileReader = new FileReader(dictionaryFilePath.toFile(), StandardCharsets.UTF_8)) {
             BufferedReader br = new BufferedReader(fileReader);
@@ -51,18 +50,12 @@ public class WordleDictionaryLoader {
 
     }
 
-    public void filterSourceDictionary() throws IOException {
+    public void filterSourceDictionary() {
         if (!sourceDictionary.isEmpty()) {
             logger.log("Найден исходный словарь! Значений: " + sourceDictionary.size());
             for (String str : sourceDictionary) {
                 if (str.length() == GameSetting.WORD_LENGTH) {
-                    String[] array = str.toLowerCase().split("");
-                    for (int i = 0; i < array.length; i++) {
-                        if (array[i].equals("ё")) {
-                            array[i] = "е";
-                        }
-                    }
-                    filteredDictionary.add(String.join("", array));
+                    filteredDictionary.add(WordleGame.editResponse(str));
                 }
             }
             logger.log("Исходный словарь успешно отфильтрован! Значений: " + filteredDictionary.size());

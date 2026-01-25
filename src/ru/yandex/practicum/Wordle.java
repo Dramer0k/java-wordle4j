@@ -27,14 +27,12 @@ public class Wordle {
             preview();
             while (true) {
                 if (wordleGame.stopGame) {
-                    logger.close();
                     break;
-                } else if (wordleGame.getSteps() < 6 && wordleGame.getSteps() > 0) {
+                } else if (wordleGame.getSteps() < GameSetting.ATTEMPTS_NUMBER && wordleGame.getSteps() > 0) {
                     System.out.println("Осталось попыток: " + wordleGame.getSteps());
                 } else if (wordleGame.getSteps() == 0) {
                     System.out.println("Лимит попыток исчерпан :(");
                     logger.log("Лимит попыток исчерпан");
-                    logger.close();
                     break;
                 }
                 String input = scanner.nextLine();
@@ -42,7 +40,6 @@ public class Wordle {
             }
         } catch (Throwable e) {
             logger.log(Arrays.toString(e.getStackTrace()));
-            logger.close();
         }
 
     }
