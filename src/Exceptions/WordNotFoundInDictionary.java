@@ -1,6 +1,6 @@
-package exceptions;
+package Exceptions;
 
-public class WordNotFoundInDictionary extends Exception {
+public class WordNotFoundInDictionary extends RuntimeException {
 
     public WordNotFoundInDictionary(String message) {
         super(message);

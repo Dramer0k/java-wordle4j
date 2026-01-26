@@ -1,5 +1,8 @@
 package ru.yandex.practicum;
 
+import Exceptions.IncorrectResponse;
+import Exceptions.WordNotFoundInDictionary;
+
 public class WordleGame {
 
     private final String answer;
@@ -23,29 +26,32 @@ public class WordleGame {
     }
 
     public String checkAnswer(String response) {
-        if (!response.isBlank() || response == null) { //если не пустой или null - переводим в нижний регистр, меняем "ё" на "е"
-            //Добавил проверку на null, но response водиться пользователем и вроде никогда не будет null
+        if (response == null || !response.isBlank()) { //если не пустой или null - переводим в нижний регистр, меняем "ё" на "е"
             response = editResponse(response);
             logger.log("Отфильтровали ответ: " + response);
         } else { //если пустой - даем подсказку
             logger.log("Пустой ответ, генерируем подсказку...");
             return checkAnswer(hintWord());
         }
-        if (response.length() != GameSetting.WORD_LENGTH) { //проверяем на корректность длины
-            System.out.println("Некорректный ввод. Слово должно состоять из " + GameSetting.WORD_LENGTH +
-                    " букв или быть пустым");
-            logger.log("Некорректный ввод слова");
-        }
-        if (!dictionary.checkWordInWords(response)) {
-            System.out.println("Введенное слово отсутствует в словаре!");
-            logger.log("Введенное слово отсутствует в словаре");
-        }
-        for (int i = 0; i < response.length(); i++) { //проверка на Кириллицу
-            if (!Character.UnicodeBlock.of(response.charAt(i)).equals(Character.UnicodeBlock.CYRILLIC)) {
-                System.out.println("Слово должно состоять только из символов кириллицы или быть пустым");
-                logger.log("Слово должно состоять только из символов кириллицы или быть пустым");
+
+        try {
+            if (response.length() != GameSetting.WORD_LENGTH) { //проверяем на корректность длины
+                throw new IncorrectResponse("Некорректный ввод. Слово должно состоять из " + GameSetting.WORD_LENGTH +
+                        " букв или быть пустым");
             }
+            if (!dictionary.checkWordInWords(response)) {
+                throw  new WordNotFoundInDictionary("Введенное слово отсутствует в словаре!");
+            }
+            for (int i = 0; i < response.length(); i++) { //проверка на Кириллицу
+                if (!Character.UnicodeBlock.of(response.charAt(i)).equals(Character.UnicodeBlock.CYRILLIC)) {
+                    throw new IncorrectResponse("Слово должно состоять только из символов кириллицы или быть пустым");
+                }
+            }
+        } catch (IncorrectResponse | WordNotFoundInDictionary e) {
+            logger.log(e.getMessage());
+            return e.getMessage();
         }
+
         steps--;
         logger.log("Использовано попыток: " + steps);
         if (response.equals(answer)) { //Верный ответ

@@ -1,6 +1,6 @@
-package exceptions;
+package Exceptions;
 
-public class IncorrectResponse extends Exception {
+public class IncorrectResponse extends RuntimeException {
 
     public IncorrectResponse(String message) {
         super(message);

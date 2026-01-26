@@ -38,8 +38,7 @@ public class WordleDictionary {
             } else if (verdict.equals(INCORRECT_LETTER) || verdict.equals(DIFFERENT_POSITION)) {
                 boolean foundLetter = false;
                 for (int i = 0; i < str.length(); i++) {
-                    String letter = String.valueOf(str.charAt(i));
-                    if (letter.equals(Character.toString(symbol))) {
+                    if (str.charAt(i) == symbol) {
                         foundLetter = true;
                     }
                 }

@@ -9,11 +9,9 @@ import java.util.Arrays;
 
 public class Logger implements AutoCloseable {
 
-    private final BufferedWriter bufferedWriter;
-    private final String nameFileLog;
+    public final BufferedWriter bufferedWriter;
 
     public Logger(String str) throws IOException {
-        this.nameFileLog = str;
         this.bufferedWriter = new BufferedWriter(new FileWriter(createFile(str), StandardCharsets.UTF_8));
     }
 
@@ -35,7 +33,7 @@ public class Logger implements AutoCloseable {
     }
 
     public void log(String message) {
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(Paths.get(System.getProperty("user.dir"), "logs", nameFileLog).toFile(), true))) {
+        try {
             bufferedWriter.write(message);
             bufferedWriter.write("\n");
         } catch (IOException e) {

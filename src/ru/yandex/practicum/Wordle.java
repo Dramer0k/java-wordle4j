@@ -1,7 +1,5 @@
 package ru.yandex.practicum;
 
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -15,15 +13,14 @@ import java.util.Scanner;
  */
 public class Wordle {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
-        Logger logger = new Logger(GameSetting.LOGGER_FILE_NAME); //создаем логгер
-        WordleDictionaryLoader loader = new WordleDictionaryLoader(logger); //создаем загрузчик словаря
-        WordleDictionary wordleDictionary = loader.loadDictionary(); // загружаем словарь
-        WordleGame wordleGame = new WordleGame(wordleDictionary, logger); //создаем игру
         Scanner scanner = new Scanner(System.in);
 
-        try {
+        try (Logger logger = new Logger(GameSetting.LOGGER_FILE_NAME)) {
+            WordleDictionaryLoader loader = new WordleDictionaryLoader(logger); //создаем загрузчик словаря
+            WordleDictionary wordleDictionary = loader.loadDictionary(); // загружаем словарь
+            WordleGame wordleGame = new WordleGame(wordleDictionary, logger); //создаем игру
             preview();
             while (true) {
                 if (wordleGame.stopGame) {
@@ -39,9 +36,8 @@ public class Wordle {
                 System.out.println(wordleGame.play(input));
             }
         } catch (Throwable e) {
-            logger.log(Arrays.toString(e.getStackTrace()));
+            System.out.println("Что-то пошло не так");
         }
-
     }
 
     public static void preview() {
