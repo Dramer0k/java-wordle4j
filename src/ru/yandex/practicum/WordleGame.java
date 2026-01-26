@@ -1,7 +1,7 @@
 package ru.yandex.practicum;
 
-import Exceptions.IncorrectResponse;
-import Exceptions.WordNotFoundInDictionary;
+import exceptions.IncorrectResponse;
+import exceptions.WordNotFoundInDictionary;
 
 public class WordleGame {
 
