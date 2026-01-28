@@ -26,7 +26,7 @@ public class WordleGame {
     }
 
     public String checkAnswer(String response) {
-        if (response == null || !response.isBlank()) { //если не пустой или null - переводим в нижний регистр, меняем "ё" на "е"
+        if (response != null && !response.isBlank()) { //если не пустой или null - переводим в нижний регистр, меняем "ё" на "е"
             response = editResponse(response);
             logger.log("Отфильтровали ответ: " + response);
         } else { //если пустой - даем подсказку
